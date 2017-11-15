@@ -1,46 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Link } from 'react-router-dom';
-import {
-  fetchPosts,
-  fetchCategories,
-  orderByVoteScore,
-  orderByTimeStamp
-} from '../actions';
+import { Route } from 'react-router-dom';
+import { fetchPosts, fetchCategories, orderBy, deletePost } from '../actions';
 import PostList from './PostList';
+import CategoryBar from './CategoryBar';
 import { baseCategory } from '../utils/config';
-import AppBar from 'material-ui/AppBar';
-import Button from 'material-ui/Button';
-import Toolbar from 'material-ui/Toolbar';
-import { sortByVoteScore, sortByTimeStamp } from '../utils/sort';
-import { VOTE_ORDER } from '../utils/config';
+import { sortBy } from '../utils/sort';
+import { AddCircle } from 'material-ui-icons';
 
 class ListContainer extends Component {
   componentDidMount() {
     this.props.fetchPosts();
     this.props.fetchCategories();
-    this.props.orderByVoteScore();
   }
 
+  handleOrderChange = event => this.props.orderBy(event.target.value);
+
+  handleDelete = post => this.props.deletePost(post);
+
   render() {
-    const { posts, categories } = this.props;
+    const { posts, categories, order } = this.props;
     return (
       <div>
-        <AppBar position="static">
-          <Toolbar>
-            {categories &&
-              categories.length > 0 &&
-              categories.map((category, i) => (
-                <Link
-                  to={category.path}
-                  key={i}
-                  style={{ textDecoration: 'none' }}
-                >
-                  <Button color="contrast">{category.name}</Button>
-                </Link>
-              ))}
-          </Toolbar>
-        </AppBar>
+        <CategoryBar
+          order={order}
+          categories={categories}
+          handleOrderChange={this.handleOrderChange}
+        />
         {categories &&
           categories.length > 0 &&
           categories.map((category, i) => (
@@ -57,20 +43,29 @@ class ListContainer extends Component {
                       posts.filter(post => post.category === category.path)
                     )
                   }
+                  handleDelete={this.handleDelete}
                 />
               )}
             />
           ))}
+        <AddCircle
+          style={{
+            position: 'fixed',
+            right: 25,
+            bottom: 25,
+            width: 50,
+            height: 50,
+            fill: '#3f51b5'
+          }}
+        />
       </div>
     );
   }
 }
 
 function mapStateToProps({ posts, categories, order }) {
-  console.log('order', order);
   return {
-    posts:
-      order === VOTE_ORDER ? sortByVoteScore(posts) : sortByTimeStamp(posts),
+    posts: sortBy(order, posts),
     categories,
     order
   };
@@ -79,6 +74,6 @@ function mapStateToProps({ posts, categories, order }) {
 export default connect(mapStateToProps, {
   fetchPosts,
   fetchCategories,
-  orderByVoteScore,
-  orderByTimeStamp
+  orderBy,
+  deletePost
 })(ListContainer);
