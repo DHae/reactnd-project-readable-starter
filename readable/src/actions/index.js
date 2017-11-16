@@ -7,6 +7,7 @@ export const UPDATE_ORDER = 'UPDATE_ORDER';
 export const DELETE_POST = 'DELETE_POST';
 export const UPDATE_POST = 'UPDATE_POST';
 export const UPDATE_COMMENT = 'UPDATE_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
 
 export const receive = (type, payload) => ({
   type,
@@ -32,10 +33,10 @@ export const orderBy = newOrder => dispatch =>
     value: newOrder
   });
 
-export const deletePost = post => distpatch =>
+export const deletePost = post => dispatch =>
   Api.deletePost(post.id).then(res => {
     if (res.status === 200) {
-      distpatch({
+      dispatch({
         type: DELETE_POST,
         value: post
       });
@@ -50,8 +51,15 @@ export const votePost = (id, option) => dispatch =>
 export const getPost = id => dispatch =>
   Api.getPost(id).then(payload => dispatch(receive(UPDATE_POST, payload)));
 
+export const voteComment = (id, option) => dispatch =>
+  Api.voteComment(id, option).then(payload =>
+    dispatch(receive(UPDATE_COMMENT, payload))
+  );
 
- export const voteComment = (id, option) => dispatch =>
-   Api.voteComment(id, option).then(payload =>
-     dispatch(receive(UPDATE_COMMENT, payload))
-   );
+export const deleteComment = comment => dispatch =>
+  Api.deleteComment(comment.id).then(res => {
+    dispatch({
+      type: DELETE_COMMENT,
+      payload: comment
+    });
+  });
