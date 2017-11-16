@@ -15,15 +15,11 @@ import {
   deleteComment,
   addComment
 } from '../actions';
-import GenericList from './GenericList';
+import CommentList from './CommentList';
 import { sortBy } from '../utils/sort';
 import CommentForm from './CommentForm';
 
 class PostDetail extends Component {
-  state = {
-    fireRedirect: false
-  };
-
   componentDidMount() {
     const { postId } = this.props.match.params;
     this.props.getPost(postId);
@@ -32,7 +28,6 @@ class PostDetail extends Component {
 
   handleDelete = post => {
     this.props.deletePost(post);
-    this.setState({ fireRedirect: true });
   };
 
   handlePostVote = (post, option) => this.props.votePost(post.id, option);
@@ -44,10 +39,9 @@ class PostDetail extends Component {
 
   render() {
     const { post, comments, addComment } = this.props;
-    const { fireRedirect } = this.state;
     return (
       <div>
-        {fireRedirect && <Redirect to={'/'} />}
+        {!post && <Redirect to={'/'} />}
         {post && (
           <div>
             <Card style={{ padding: 5, margin: 5 }}>
@@ -90,7 +84,7 @@ class PostDetail extends Component {
               </Card>
               <Card style={{ padding: 5, margin: 5 }}>
                 <CardHeader title={`${post.numComments} comments`} />
-                <GenericList
+                <CommentList
                   items={comments}
                   handleVote={this.handleCommentVote}
                   handleDelete={this.handleCommentDelete}
