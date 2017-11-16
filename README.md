@@ -1,11 +1,18 @@
 # Readable Project
 
-
 ## Server
-    - `cd api-server`
-    - `npm install`
-    - `node server`
-## App
-    - `cd readable`
-    - `npm start`
 
+```sh
+cd api-server
+npm install
+npm start
+```
+
+## App
+
+
+```sh
+cd readable
+npm install
+npm start
+```
