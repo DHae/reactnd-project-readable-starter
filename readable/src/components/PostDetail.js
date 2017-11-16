@@ -1,22 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Card, {
-  CardHeader,
-  CardMedia,
-  CardContent,
-  CardActions
-} from 'material-ui/Card';
+import { Redirect } from 'react-router-dom';
+import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import VoteScore from './VoteScore';
 import { Edit, DeleteForever } from 'material-ui-icons';
-import IconButton from 'material-ui/IconButton';
 import moment from 'moment';
+import { getPost, fetchComments, deletePost } from '../actions';
 
 class PostDetail extends Component {
+  state = {
+    fireRedirect: false
+  };
+
+  componentDidMount() {
+    const { postId } = this.props.match.params;
+
+    this.props.getPost(postId);
+    this.props.fetchComments(postId);
+  }
+
+  handleDelete = post => {
+    this.props.deletePost(post);
+    this.setState({ fireRedirect: true });
+  };
+
   render() {
     const { post } = this.props;
+    const { fireRedirect } = this.state;
     return (
       <div>
+        {fireRedirect && <Redirect to={'/'} />}
         {post && (
           <div>
             <Card style={{ padding: 5, margin: 5 }}>
@@ -40,7 +54,7 @@ class PostDetail extends Component {
                 />
                 <div>
                   <Edit />
-                  <DeleteForever />
+                  <DeleteForever onClick={() => this.handleDelete(post)} />
                 </div>
               </div>
               <CardContent>
@@ -63,4 +77,6 @@ function mapStateToProps({ posts }, { match }) {
   };
 }
 
-export default connect(mapStateToProps)(PostDetail);
+export default connect(mapStateToProps, { getPost, fetchComments, deletePost })(
+  PostDetail
+);
