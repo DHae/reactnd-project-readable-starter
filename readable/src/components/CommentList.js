@@ -7,6 +7,7 @@ import Card from 'material-ui/Card';
 import CommentForm from './CommentForm';
 import { timeFormat } from '../utils/config';
 import PropTypes from 'prop-types';
+import IconButton from 'material-ui/IconButton';
 
 const Content = ({ item }) => (
   <div style={{ paddingLeft: 10 }}>
@@ -43,17 +44,21 @@ const CommentList = ({
                       flex: '1 1 auto'
                     }}
                   >
-                    <VoteScore item={item} handleVote={handleVote} />
+                    
                     <Content item={item} />
                     <div
                       style={{
                         flex: '1 1 auto'
                       }}
                     />
-                    <div>
+                    
+                    <IconButton aria-label="Edit">
                       <Edit onClick={() => handleEditButton(item)} />
+                    </IconButton>
+                    <IconButton aria-label="DeleteForever">
                       <DeleteForever onClick={() => handleDelete(item)} />
-                    </div>
+                    </IconButton>
+                    
                   </div>
                 </ListItem>
               )}
@@ -64,6 +69,7 @@ const CommentList = ({
                     handleFinishEdit={handleFinishEdit}
                   />
                 )}
+              <VoteScore item={item} handleVote={handleVote} />
             </Card>
           </div>
         ))}

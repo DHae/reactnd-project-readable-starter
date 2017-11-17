@@ -4,7 +4,7 @@ import Button from 'material-ui/Button';
 import { v4 } from 'uuid';
 import { connect } from 'react-redux';
 import { addPost, updatePost } from '../actions/postsActions';
-import Card from 'material-ui/Card';
+import Card, { CardActions } from 'material-ui/Card';
 import Select from 'material-ui/Select';
 import Input, { InputLabel } from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
@@ -12,6 +12,9 @@ import { FormControl } from 'material-ui/Form';
 import { baseCategory } from '../utils/config';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
+import { MuiThemeProvider } from 'material-ui/styles';
+import { theme } from '../_shared/constants/theme';
 
 class PostForm extends Component {
   static propTypes = {
@@ -80,7 +83,7 @@ class PostForm extends Component {
           style={{
             paddingLeft: 5
           }}
-        >
+        >          
           <form
             style={{
               display: 'flex',
@@ -90,44 +93,46 @@ class PostForm extends Component {
             onSubmit={event => this.handleSubmit(event)}
             autoComplete="off"
           >
-            <TextField
-              required
-              id="title"
-              label="Title"
-              fullWidth
-              value={this.state.title}
-              onChange={this.handleChange('title')}
-              style={{
-                paddingTop: 10,
-                paddingBottom: 20
-              }}
-            />
-            <TextField
-              required
-              id="body"
-              label="Body"
-              fullWidth
-              multiline
-              rows="4"
-              value={this.state.body}
-              onChange={this.handleChange('body')}
-              style={{
-                paddingTop: 10,
-                paddingBottom: 20
-              }}
-            />
-            <TextField
-              required
-              id="author"
-              label="Author"
-              fullWidth
-              value={this.state.author}
-              onChange={this.handleChange('author')}
-              style={{
-                paddingTop: 10,
-                paddingBottom: 20
-              }}
-            />
+            <MuiThemeProvider theme={theme}>
+              <TextField
+                required
+                id="title"
+                label="Title"
+                fullWidth
+                value={this.state.title}
+                onChange={this.handleChange('title')}
+                style={{
+                  paddingTop: 10,
+                  paddingBottom: 20
+                }}
+              />
+              <TextField
+                required
+                id="body"
+                label="Body"
+                fullWidth
+                multiline
+                rows="4"
+                value={this.state.body}
+                onChange={this.handleChange('body')}
+                style={{
+                  paddingTop: 10,
+                  paddingBottom: 20
+                }}
+              />
+              <TextField
+                required
+                id="author"
+                label="Author"
+                fullWidth
+                value={this.state.author}
+                onChange={this.handleChange('author')}
+                style={{
+                  paddingTop: 10,
+                  paddingBottom: 20
+                }}
+              />
+            </MuiThemeProvider>
             <FormControl>
               <InputLabel htmlFor="category">Category</InputLabel>
               <Select
@@ -147,24 +152,27 @@ class PostForm extends Component {
                   ))}
               </Select>
             </FormControl>
-            <Button
-              raised
-              color="primary"
-              style={{
-                marginBottom: 20
-              }}
-              type="submit"
-            >
-              Save
-            </Button>
-            <Button
-              style={{
-                marginBottom: 20
-              }}
-              onClick={this.redirect}
-            >
-              Cancel
-            </Button>
+            <CardActions>
+              <MuiThemeProvider theme={theme}>
+                <Button
+                  raised
+                  style={{
+                    marginBottom: 20
+                  }}
+                  type="submit"
+                >
+                  Save
+                </Button>
+              </MuiThemeProvider>
+              <Button
+                style={{
+                  marginBottom: 20
+                }}
+                onClick={this.redirect}
+              >
+                Cancel
+              </Button>
+            </CardActions>
           </form>
         </div>
       </Card>

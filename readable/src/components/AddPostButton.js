@@ -3,6 +3,9 @@ import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Add';
 import { Link } from 'react-router-dom';
 
+import { MuiThemeProvider } from 'material-ui/styles';
+import { theme } from '../_shared/constants/theme';
+
 const AddPostButton = () => {
   return (
     <div
@@ -16,9 +19,11 @@ const AddPostButton = () => {
       }}
     >
       <Link to={`/post/new`} style={{ textDecoration: 'none' }}>
-        <Button fab color="primary">
-          <AddIcon />
-        </Button>
+        <MuiThemeProvider theme={theme}>
+          <Button fab color="primary">
+            <AddIcon />
+          </Button>
+        </MuiThemeProvider>
       </Link>
     </div>
   );

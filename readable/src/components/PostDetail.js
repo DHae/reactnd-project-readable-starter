@@ -16,6 +16,7 @@ import { sortBy } from '../utils/sort';
 import CommentForm from './CommentForm';
 import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import IconButton from 'material-ui/IconButton';
 
 class PostDetail extends Component {
   static propTypes = {
@@ -77,7 +78,7 @@ class PostDetail extends Component {
                   paddingRight: 16
                 }}
               >
-                <VoteScore item={post} handleVote={this.handlePostVote} />
+                
                 <CardHeader
                   title={post.title}
                   subheader={`Sent ${moment(post.timestamp).format(
@@ -94,14 +95,19 @@ class PostDetail extends Component {
                     to={`/post/edit/${post.id}`}
                     style={{ textDecoration: 'none', color: 'black' }}
                   >
-                    <Edit />
+                    <IconButton aria-label="Edit">
+                      <Edit />
+                    </IconButton>
                   </Link>
-                  <DeleteForever onClick={() => this.handleDelete(post)} />
+                  <IconButton aria-label="DeleteForever">
+                    <DeleteForever onClick={() => this.handleDelete(post)} />
+                  </IconButton>
                 </div>
               </div>
               <CardContent>
                 <Typography paragraph>{post.body}</Typography>
               </CardContent>
+              <VoteScore item={post} handleVote={this.handlePostVote} />
             </Card>
           </div>
         )}

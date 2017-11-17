@@ -5,11 +5,16 @@ import VoteScore from './VoteScore';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Card from 'material-ui/Card';
+import IconButton from 'material-ui/IconButton';
 
 const timeFormat = 'Do MMM YYYY';
 
 const EditButton = ({ item }) => (
-  <div>{item.parentId ? <Edit /> : <Edit />}</div>
+  <div>{item.parentId ? 
+    <IconButton aria-label="Edit">
+      <Edit /> : <Edit />
+    </IconButton>
+    }</div>
 );
 
 const Content = ({ item }) => (
@@ -64,7 +69,9 @@ const GenericList = ({ items, handleDelete, handleVote }) => {
                   />
                   <div>
                     <EditButton item={item} />
-                    <DeleteForever onClick={() => handleDelete(item)} />
+                    <IconButton aria-label="DeleteForever">
+                      <DeleteForever onClick={() => handleDelete(item)} />
+                    </IconButton>
                   </div>
                 </div>
               </ListItem>

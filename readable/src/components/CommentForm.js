@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 import { addComment, updateComment } from '../actions/commentsActions';
 import PropTypes from 'prop-types';
 
+import { MuiThemeProvider } from 'material-ui/styles';
+import { theme } from '../_shared/constants/theme';
+
 class CommentForm extends Component {
   static propTypes = {
     comment: PropTypes.object,
@@ -103,17 +106,19 @@ class CommentForm extends Component {
               paddingBottom: 20
             }}
           />
-          <Button
-            raised
-            color="primary"
-            style={{
-              maxWidth: 400,
-              marginBottom: 20
-            }}
-            type="submit"
-          >
-            Save
-          </Button>
+          <MuiThemeProvider theme={theme}>
+            <Button
+              raised
+              color="primary"
+              style={{
+                maxWidth: 400,
+                marginBottom: 20
+              }}
+              type="submit"
+            >
+              Save
+            </Button>
+          </MuiThemeProvider>
           {comment && (
             <Button
               style={{

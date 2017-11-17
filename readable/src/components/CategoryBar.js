@@ -9,9 +9,12 @@ import Input from 'material-ui/Input';
 import { MenuItem } from 'material-ui/Menu';
 import { VOTE_ORDER, TIMESTAMP_ORDER } from '../utils/config';
 import PropTypes from 'prop-types';
+import Typography from 'material-ui/Typography';
+import { appBarColor } from '../_shared/constants/theme';
+
 
 const CategoryBar = ({ categories, order, handleOrderChange }) => (
-  <AppBar position="static">
+  <AppBar position="static" style={appBarColor}>
     <Toolbar>
       {categories &&
         categories.length > 0 &&
@@ -24,6 +27,8 @@ const CategoryBar = ({ categories, order, handleOrderChange }) => (
             <Button color="contrast">{category.name}</Button>
           </Link>
         ))}
+      <Typography type="title" color="inherit" style={{ flex: 1}}>
+      </Typography>
       <FormControl>
         <Select
           style={{ color: 'white' }}
