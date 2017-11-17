@@ -5,6 +5,7 @@ import VoteScore from './VoteScore';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 import Card, { CardHeader } from 'material-ui/Card';
+import { timeFormat } from '../utils/config';
 import IconButton from 'material-ui/IconButton';
 import PropTypes from 'prop-types';
 import Avatar from 'material-ui/Avatar';
@@ -51,8 +52,8 @@ const PostList = ({ items, handleDelete, handleVote }) => {
                       }
                       title={item.title} 
                       subheader={`Sent ${moment(item.timestamp).format(
-                        'Do MMMM YYYY, h:mm a'
-                      )} by ${item.author}`}>
+                        timeFormat
+                      )} - Author: ${item.author} - Comments: ${item.commentCount}`}>
                       <Link
                         to={`/${item.category}/${item.id}`}
                         style={{ textDecoration: 'none', color: 'black' }}
@@ -71,8 +72,8 @@ const PostList = ({ items, handleDelete, handleVote }) => {
                     }
                     title={item.title} 
                     subheader={`Sent ${moment(item.timestamp).format(
-                      'Do MMMM YYYY, h:mm a'
-                    )} by ${item.author}`}>
+                      timeFormat
+                    )} - Author: ${item.author} - Comments: ${item.commentCount}`}>
                     <Link
                         to={`/${item.category}/${item.id}`}
                         style={{ textDecoration: 'none', color: 'black' }}
@@ -91,8 +92,8 @@ const PostList = ({ items, handleDelete, handleVote }) => {
                     }
                     title={item.title} 
                     subheader={`Sent ${moment(item.timestamp).format(
-                      'Do MMMM YYYY, h:mm a'
-                    )} by ${item.author}`}>
+                      timeFormat
+                    )} - Author: ${item.author} - Comments: ${item.commentCount}`}>
                     <Link
                         to={`/${item.category}/${item.id}`}
                         style={{ textDecoration: 'none', color: 'black' }}
