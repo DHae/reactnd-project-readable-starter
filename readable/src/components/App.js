@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import ListContainer from './ListContainer';
 import PostDetail from './PostDetail';
 import AddPostButton from './AddPostButton';
 import PostForm from './PostForm';
+import Notfound from './PageNotFound';
 
 class App extends Component {
   render() {
@@ -17,6 +18,8 @@ class App extends Component {
           <Route path="/post/edit/:postId" component={PostForm} />
           <Route path="/:category/:postId" component={PostDetail} />
         </Switch>
+        <Route path="/404" component={Notfound} />
+        <Redirect from="*" to="/404" />
       </div>
     );
   }
