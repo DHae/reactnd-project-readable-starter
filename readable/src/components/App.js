@@ -11,15 +11,13 @@ class App extends Component {
     return (
       <div>
         <Route path="/" component={ListContainer} />
-        <Route exact path="/" component={AddPostButton} />
+        <Route exact path="/" component={AddPostButton} />          
         <Route exact path="/:category" component={AddPostButton} />
         <Switch>
-          <Route path="/post/new" component={PostForm} />
-          <Route path="/post/edit/:postId" component={PostForm} />
-          <Route path="/:category/:postId" component={PostDetail} />
-        </Switch>
-        <Route path="/404" component={Notfound} />
-        <Redirect from="*" to="/404" />
+          <Route exact path="/post/new" component={PostForm} />
+          <Route exact path="/post/edit/:postId" component={PostForm} />
+          <Route exact path="/:category/:postId" component={PostDetail} /> 
+        </Switch>         
       </div>
     );
   }
