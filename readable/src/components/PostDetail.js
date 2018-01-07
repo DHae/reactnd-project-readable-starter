@@ -63,7 +63,9 @@ class PostDetail extends Component {
 
     if (deleted) {
       return <Redirect to={'/'} />;
-    }
+    }else if(post === undefined) {
+      return <Redirect to={'/notFound'} />;
+    }    
 
     return (
       <div>
