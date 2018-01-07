@@ -39,7 +39,7 @@ const VoteScore = ({ item, handleVote, secondItem }) => (
 VoteScore.propTypes = {
   item: PropTypes.object.isRequired,
   handleVote: PropTypes.func.isRequired,
-  secondItem: PropTypes.bool.isNotRequired
+  secondItem: PropTypes.bool
 };
 
 export default VoteScore;
